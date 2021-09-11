@@ -115,7 +115,7 @@ class BaseLassoNet(BaseEstimator, metaclass=ABCMeta):
         if optim is None:
             optim = (
                 partial(torch.optim.Adam, lr=1e-3),
-                partial(torch.optim.SGD, lr=1e-3, momentum=0.9),
+                partial(torch.optim.Adam, lr=1e-3),
             )
         if isinstance(optim, partial):
             optim = (optim, optim)
@@ -217,7 +217,7 @@ class BaseLassoNet(BaseEstimator, metaclass=ABCMeta):
             batch_size = n_train
             randperm = torch.arange
         else:
-            randperm = torch.randperm
+            randperm = torch.arange
         batch_size = min(batch_size, n_train)
 
         for epoch in range(epochs):
