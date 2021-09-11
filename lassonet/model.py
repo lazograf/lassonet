@@ -25,7 +25,7 @@ class LassoNet(nn.Module):
         for theta in self.layers:
             current_layer = theta(current_layer)
             if theta is not self.layers[-1]:
-                current_layer = F.relu(current_layer)
+                current_layer = torch.tanh(current_layer) #F.relu(current_layer)
         return result + current_layer
 
     def prox(self, *, lambda_, lambda_bar=0, M=1):
